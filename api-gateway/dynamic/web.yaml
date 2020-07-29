@@ -1,0 +1,30 @@
+http:
+  routers:
+    web:
+      rule: "Host(`www.mplus.test`)"
+      service: web
+      middlewares:
+        - auth_web
+
+    web_auth:
+      rule: "Host(`auth.mplus.test`)"
+      service: web
+      middlewares:
+        - auth_web
+
+    web_js:
+      rule: "Host(`www.mplus.test`) && PathPrefix(`js`)"
+      service: web
+
+    web_css:
+      rule: "Host(`www.mplus.test`) && PathPrefix(`css`)"
+      service: web
+
+  middlewares:
+    auth_web:
+      forwardAuth:
+        address: http://auth/middlewares/web
+        authResponseHeaders:
+          - "Device-Id"
+          - "Correlation-Id"
+          - "User"

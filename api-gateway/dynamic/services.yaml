@@ -1,0 +1,16 @@
+http:
+  services:
+    app-api:
+      loadBalancer:
+        servers:
+          - url: "http://app-api"
+
+    auth:
+      loadBalancer:
+        servers:
+          - url: "http://auth"
+
+    web:
+      loadBalancer:
+        servers:
+          - url: "http://web"

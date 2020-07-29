@@ -38,6 +38,20 @@ services:
     networks:
       - app-network
 
+  web:
+    build: ./web
+    image: ms_web
+    environment:
+      APP_ENV: local
+      APP_USER: 1000
+      APP_USER_GROUP: 1000
+    ports:
+      - 8003:80
+    volumes:
+      - ./web:/app
+    networks:
+      - app-network
+
 networks:
   app-network:
     driver: bridge
