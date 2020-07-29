@@ -1,0 +1,1 @@
+FROM selmonal/laravel-alpine:7.4

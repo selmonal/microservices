@@ -1,0 +1,22 @@
+entryPoints:
+  http:
+    address: :80
+    forwardedHeaders:
+      insecure: true
+    proxyProtocol:
+      insecure: true
+  
+providers:
+  file:
+    directory: "/etc/traefik.d"
+
+log:
+  level: ERROR
+
+api:
+  dashboard: true
+  insecure: true
+  debug: false
+
+ping: {}
+  

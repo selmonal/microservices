@@ -1,0 +1,19 @@
+http:
+  routers:
+    app-api:
+      rule: "Host(`app.mplus.test`)"
+      service: app-api
+      middlewares:
+        - auth_app-api
+
+    app-api_init:
+      rule: "Host(`app.mplus.test`) && Path(`/v1/init`)"
+      service: app-api
+        
+  middlewares:
+    auth_app-api:
+      forwardAuth:
+        address: http://auth/middlewares/app-api
+        authResponseHeaders:
+          - "Device-Id"
+          - "Correlation-Id"

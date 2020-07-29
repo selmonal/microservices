@@ -1,0 +1,43 @@
+version: "3.4"
+
+services:
+  api-gateway:
+    build: ./api-gateway
+    image: ms_api-gateway
+    ports:
+      - 8000:80
+      - 8080:8080
+    networks:
+      - app-network
+
+  auth:
+    build: ./auth
+    image: ms_auth
+    environment:
+      APP_ENV: local
+      APP_USER: 1000
+      APP_USER_GROUP: 1000
+    ports:
+      - 8001:80
+    volumes:
+      - ./auth:/app
+    networks:
+      - app-network
+
+  app-api:
+    build: ./app-api
+    image: ms_app-api
+    environment:
+      APP_ENV: local
+      APP_USER: 1000
+      APP_USER_GROUP: 1000
+    ports:
+      - 8002:80
+    volumes:
+      - ./app-api:/app
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
